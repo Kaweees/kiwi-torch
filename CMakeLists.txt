@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR) # Set the minimum required version of CMake
-project(cpp-template LANGUAGES CXX)
+project(kiwitorch LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 14) # Use C++14 standard for more features
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Werror") # Set the compiler flags to include all warnings and treat them as errors
 
@@ -9,39 +9,39 @@ add_executable(${PROJECT_NAME})
 # Set benchmark mode to true
 # target_compile_definitions(${PROJECT_NAME} PRIVATE BENCHMARK_MODE)
 
-# Check for CUDA
-include(CheckLanguage)
-check_language(CUDA)
-if(CMAKE_CUDA_COMPILER)
-    enable_language(CUDA)
-    find_package(CUDA REQUIRED)
-    include_directories(${CUDA_INCLUDE_DIRS})
-    set(CMAKE_CUDA_STANDARD 14)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE USE_CUDA)
-    set(CUDA_FOUND TRUE)
-    # Setting our CUDA sources
-    file(GLOB_RECURSE CUDA_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.cu")
-    message(STATUS "CUDA found. Building with CUDA support.")
-else()
-    set(CUDA_FOUND FALSE)
-    message(STATUS "CUDA not found. Checking for Apple Metal support.")
-endif()
+# # Check for CUDA
+# include(CheckLanguage)
+# check_language(CUDA)
+# if(CMAKE_CUDA_COMPILER)
+#     enable_language(CUDA)
+#     find_package(CUDA REQUIRED)
+#     include_directories(${CUDA_INCLUDE_DIRS})
+#     set(CMAKE_CUDA_STANDARD 14)
+#     target_compile_definitions(${PROJECT_NAME} PRIVATE USE_CUDA)
+#     set(CUDA_FOUND TRUE)
+#     # Setting our CUDA sources
+#     file(GLOB_RECURSE CUDA_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.cu")
+#     message(STATUS "CUDA found. Building with CUDA support.")
+# else()
+#     set(CUDA_FOUND FALSE)
+#     message(STATUS "CUDA not found. Checking for Apple Metal support.")
+# endif()
 
-# Check for Apple Metal (only if CUDA is not found)
-if(NOT CUDA_FOUND AND APPLE)
-    find_library(METAL_LIBRARY Metal)
-    find_library(FOUNDATION_LIBRARY Foundation)
-    if(METAL_LIBRARY AND FOUNDATION_LIBRARY)
-        set(METAL_FOUND TRUE)
-        target_compile_definitions(${PROJECT_NAME} PRIVATE USE_METAL)
-        target_link_libraries(${PROJECT_NAME} ${METAL_LIBRARY})
-        # Setting our Metal sources
-        file(GLOB_RECURSE METAL_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.metal")
-        message(STATUS "Apple Metal found. Building with Metal support.")
-    else()
-        message(WARNING "Neither CUDA nor Apple Metal found. Building without GPU acceleration.")
-    endif()
-endif()
+# # Check for Apple Metal (only if CUDA is not found)
+# if(NOT CUDA_FOUND AND APPLE)
+#     find_library(METAL_LIBRARY Metal)
+#     find_library(FOUNDATION_LIBRARY Foundation)
+#     if(METAL_LIBRARY AND FOUNDATION_LIBRARY)
+#         set(METAL_FOUND TRUE)
+#         target_compile_definitions(${PROJECT_NAME} PRIVATE USE_METAL)
+#         target_link_libraries(${PROJECT_NAME} ${METAL_LIBRARY})
+#         # Setting our Metal sources
+#         file(GLOB_RECURSE METAL_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.metal")
+#         message(STATUS "Apple Metal found. Building with Metal support.")
+#     else()
+#         message(WARNING "Neither CUDA nor Apple Metal found. Building without GPU acceleration.")
+#     endif()
+# endif()
 
 # Adding our source files
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.c" "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp" "${CMAKE_CURRENT_LIST_DIR}/src/*.cc" "${CMAKE_CURRENT_LIST_DIR}/src/*.cxx")
