@@ -57,7 +57,6 @@ Before attempting to build this project, make sure you have [GNU Make](https://w
 
 Additionally, if you wish to utilize the GPU acceleration features, you will need to have [CUDA Toolkit](https://developer.nvidia.com/cuda-downloads) or [Apple Metal](https://developer.apple.com/metal/cpp/) installed on your machine.
 
-
 you will need a C++ compiler that supports C++13, and a CUDA compatible GPU if you wish to use the CUDA acceleration features.
 
 ### Installation
@@ -67,13 +66,55 @@ To get a local copy of the project up and running on your machine, follow these 
 1. Clone the project repository
 
    ```sh
-   git clone https://github.com/Kaweees/cpp-template.git
-   cd graphics
+   git clone https://github.com/Kaweees/KiwiTorch.git
+   cd KiwiTorch
    ```
 
-2. Build and execute the project
+2. Create a fresh build directory and navigate to it
+
    ```sh
-   clear && cmake CMakeLists.txt && make && ./target/release/cpp-template
+   rm -rf build
+   mkdir build
+   cd build
+   ```
+
+3. Generate build files using CMake
+   ```sh
+   cmake -S .. -B . -DCMAKE_BUILD_TYPE=Debug
+   ```
+
+4. Build the entire project
+   ```sh
+   cmake --build ..
+   ```
+
+### Building and Running Tests
+
+1. Build only the tests
+   ```sh
+   cmake --build . --target tests
+   ```
+
+2. Run all tests
+   ```sh
+   ctest --output-on-failure
+   ```
+
+3. Run a specific test suite
+   ```sh
+   ./tests/test_suite_name
+   ```
+
+### Building and Running Examples
+
+1. Build only the examples
+   ```sh
+   cmake --build . --target examples
+   ```
+
+2. Run a specific example
+   ```sh
+   ./examples/example_name
    ```
 
 <!-- PROJECT FILE STRUCTURE -->
