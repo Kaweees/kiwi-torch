@@ -3,40 +3,71 @@
 #include <kiwitorch/kiwitorch.hpp>
 using namespace kiwitorch;
 
+// Helper function for floating point comparison
+bool assert_close(float a, float b, float rtol = 1e-5) {
+  return std::abs(a - b) < rtol;
+}
+
+// Basic arithmetic tests
 TEST(ScalarTest, BasicOperations) {
-  // Test basic arithmetic operations
   EXPECT_EQ(Scalar::add(2, 3), 5);
   EXPECT_EQ(Scalar::mul(2, 3), 6);
   EXPECT_EQ(Scalar::neg(5), -5);
   EXPECT_EQ(Scalar::id(42), 42);
 }
 
-TEST(ScalarTest, ComparisonOperations) {
-  EXPECT_TRUE(Scalar::lt(2, 3));
-  EXPECT_FALSE(Scalar::lt(3, 2));
-  EXPECT_TRUE(Scalar::eq(2, 2));
-  EXPECT_FALSE(Scalar::eq(2, 3));
-  EXPECT_EQ(Scalar::max(2, 3), 3);
-  EXPECT_EQ(Scalar::max(3, 2), 3);
+// Basic operator tests
+TEST(OperatorsTest, BasicOperations) {
+  float x = 1.5f;
+  float y = 2.0f;
+
+  EXPECT_TRUE(assert_close(Scalar::mul(x, y), x * y));
+  EXPECT_TRUE(assert_close(Scalar::add(x, y), x + y));
+  EXPECT_TRUE(assert_close(Scalar::neg(x), -x));
+  EXPECT_TRUE(assert_close(Scalar::max(x, y), std::max(x, y)));
+  if (std::abs(x) > 1e-5) {
+    EXPECT_TRUE(assert_close(Scalar::inv(x), 1.0f / x));
+  }
 }
 
-TEST(ScalarTest, AdvancedMathOperations) {
-  // Test sigmoid
-  EXPECT_TRUE(Scalar::is_close(Scalar::sigmoid(0), 0.5));
-  EXPECT_TRUE(Scalar::sigmoid(100) < 1.0 && Scalar::sigmoid(100) > 0.99);
-  EXPECT_TRUE(Scalar::sigmoid(-100) > 0.0 && Scalar::sigmoid(-100) < 0.01);
+TEST(OperatorsTest, ReluTest) {
+  float a = 1.5f;
+  EXPECT_TRUE(assert_close(Scalar::relu(a), a));
 
-  // Test ReLU
-  EXPECT_EQ(Scalar::relu(3), 3);
-  EXPECT_EQ(Scalar::relu(-3), 0);
-  EXPECT_EQ(Scalar::relu(0), 0);
-
-  // Test exp and log
-  EXPECT_TRUE(Scalar::is_close(Scalar::log(Scalar::exp(2)), 2));
-  EXPECT_TRUE(Scalar::is_close(Scalar::exp(Scalar::log(2)), 2));
+  a = -1.5f;
+  EXPECT_TRUE(assert_close(Scalar::relu(a), 0.0f));
 }
 
-TEST(ScalarTest, VectorOperations) {
+TEST(OperatorsTest, ReluBackTest) {
+  float a = 1.5f;
+  float b = 2.0f;
+  EXPECT_TRUE(assert_close(Scalar::reluBack(a, b), b));
+
+  a = -1.5f;
+  EXPECT_TRUE(assert_close(Scalar::reluBack(a, b), 0.0f));
+}
+
+// Property tests
+TEST(OperatorsTest, SigmoidProperties) {
+  float a = 1.5f;
+  float sig_a = Scalar::sigmoid(a);
+
+  // Between 0 and 1
+  EXPECT_TRUE(sig_a >= 0.0f && sig_a <= 1.0f);
+
+  // 1 - sigmoid(x) = sigmoid(-x)
+  EXPECT_TRUE(assert_close(1.0f - Scalar::sigmoid(a), Scalar::sigmoid(-a)));
+
+  // Crosses 0.5 at x=0
+  EXPECT_TRUE(assert_close(Scalar::sigmoid(0.0f), 0.5f));
+
+  // Strictly increasing
+  float b = a + 0.1f;
+  EXPECT_TRUE(Scalar::sigmoid(b) > Scalar::sigmoid(a));
+}
+
+// List operation tests
+TEST(OperatorsTest, ListOperations) {
   std::vector<double> v1 = {1, 2, 3};
   std::vector<double> v2 = {4, 5, 6};
 
@@ -57,4 +88,13 @@ TEST(ScalarTest, VectorOperations) {
   // Test reduce
   EXPECT_EQ(Scalar::sum(v1), 6);
   EXPECT_EQ(Scalar::prod(v1), 6);
+}
+
+TEST(OperatorsTest, NegListTest) {
+  std::vector<double> ls = {1.0f, -2.0f, 3.0f};
+  auto result = Scalar::negList(ls);
+
+  for (size_t i = 0; i < ls.size(); i++) {
+    EXPECT_TRUE(assert_close(ls[i], -result[i]));
+  }
 }

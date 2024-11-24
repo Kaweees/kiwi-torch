@@ -14,5 +14,6 @@ foreach (name IN LISTS TESTS)
     ${PROJECT_NAME}
     GTest::gtest_main
   )
+  set_target_properties("${name}" PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/target/release/" OUTPUT_NAME "${name}")
 endforeach ()
 
