@@ -25,7 +25,7 @@ endif()
 # Check for Apple Metal (only if CUDA is not found)
 if(NOT CUDA_FOUND AND APPLE)
   # Set the SDK path
-  set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)
+  # set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)
   # find_library(METAL_LIBRARY Metal)
   # find_library(FOUNDATION_LIBRARY Foundation)
   # if(METAL_LIBRARY AND FOUNDATION_LIBRARY)
@@ -47,8 +47,8 @@ add_library(
 target_include_directories(
   ${PROJECT_NAME}
   INTERFACE
-  "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>"
-  "$<INSTALL_INTERFACE:include>"
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
 )
 
 

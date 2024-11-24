@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../include/operators.hpp"
-
+#include <kiwitorch/kiwitorch.hpp>
 using namespace kiwitorch;
 
 TEST(ScalarTest, BasicOperations) {
