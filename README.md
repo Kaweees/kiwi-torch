@@ -19,17 +19,17 @@
 
 </div>
 
-<a href="https://github.com/Kaweees/cpp-template">
+<a href="https://github.com/Kaweees/kiwitorch">
   <img alt="C++ Logo" src="assets/img/cpp.svg" align="right" width="150">
 </a>
 
 <div align="left">
-  <h1><em><a href="https://github.com/Kaweees/cpp-template">~cpp-template</a></em></h1>
+  <h1><em><a href="https://github.com/Kaweees/kiwitorch">~kiwitorch</a></em></h1>
 </div>
 
 <!-- ABOUT THE PROJECT -->
 
-A template for creating C++13 projects accelerated with CUDA/Apple Metal
+A header-only implementation of pytorch written in C++13 and accelerated with CUDA/Apple Metal.
 
 ### Built With
 
@@ -57,8 +57,6 @@ Before attempting to build this project, make sure you have [GNU Make](https://w
 
 Additionally, if you wish to utilize the GPU acceleration features, you will need to have [CUDA Toolkit](https://developer.nvidia.com/cuda-downloads) or [Apple Metal](https://developer.apple.com/metal/cpp/) installed on your machine.
 
-you will need a C++ compiler that supports C++13, and a CUDA compatible GPU if you wish to use the CUDA acceleration features.
-
 ### Installation
 
 To get a local copy of the project up and running on your machine, follow these simple steps:
@@ -66,8 +64,8 @@ To get a local copy of the project up and running on your machine, follow these 
 1. Clone the project repository
 
    ```sh
-   git clone https://github.com/Kaweees/KiwiTorch.git
-   cd KiwiTorch
+   git clone https://github.com/Kaweees/kiwitorch.git
+   cd kiwitorch
    ```
 
 2. Create a fresh build directory and navigate to it
@@ -79,11 +77,13 @@ To get a local copy of the project up and running on your machine, follow these 
    ```
 
 3. Generate build files using CMake
+
    ```sh
    cmake -S .. -B . -DCMAKE_BUILD_TYPE=Debug
    ```
 
 4. Build the entire project
+
    ```sh
    cmake --build .
    ```
@@ -91,16 +91,19 @@ To get a local copy of the project up and running on your machine, follow these 
 ### Building and Running Tests
 
 1. Build only the tests
+
    ```sh
    cmake --build . --target tests
    ```
 
 2. Run all tests
+
    ```sh
    ctest --output-on-failure
    ```
 
 3. Run a specific test suite
+
    ```sh
    ./tests/test_suite_name
    ```
@@ -108,11 +111,13 @@ To get a local copy of the project up and running on your machine, follow these 
 ### Building and Running Examples
 
 1. Build only the examples
+
    ```sh
    cmake --build . --target examples
    ```
 
 2. Run a specific example
+
    ```sh
    ./examples/example_name
    ```
@@ -133,17 +138,17 @@ graphics/
 
 ## License
 
-The source code for my website is distributed under the terms of the GNU General Public License v3.0, as I firmly believe that collaborating on free and open-source software fosters innovations that mutually and equitably beneficial to both collaborators and users alike. See [`LICENSE`](./LICENSE) for details and more information.
+The source code for kiwitorch is distributed under the terms of the GNU General Public License v3.0, as I firmly believe that collaborating on free and open-source software fosters innovations that mutually and equitably beneficial to both collaborators and users alike. See [`LICENSE`](./LICENSE) for details and more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/Kaweees/cpp-template.svg?style=for-the-badge
-[contributors-url]: https://github.com/Kaweees/cpp-template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Kaweees/cpp-template.svg?style=for-the-badge
-[forks-url]: https://github.com/Kaweees/cpp-template/network/members
-[stars-shield]: https://img.shields.io/github/stars/Kaweees/cpp-template.svg?style=for-the-badge
-[stars-url]: https://github.com/Kaweees/cpp-template/stargazers
+[contributors-shield]: https://img.shields.io/github/contributors/Kaweees/kiwitorch.svg?style=for-the-badge
+[contributors-url]: https://github.com/Kaweees/kiwitorch/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Kaweees/kiwitorch.svg?style=for-the-badge
+[forks-url]: https://github.com/Kaweees/kiwitorch/network/members
+[stars-shield]: https://img.shields.io/github/stars/Kaweees/kiwitorch.svg?style=for-the-badge
+[stars-url]: https://github.com/Kaweees/kiwitorch/stargazers
 
 <!-- MARKDOWN SHIELD BAGDES & LINKS -->
 <!-- https://github.com/Ileriayo/markdown-badges -->
