@@ -136,6 +136,31 @@ graphics/
 └── README.md                      - you are here
 ```
 
+``` bash
+kiwitorch/
+include/kiwitorch/
+├── core/               # Core functionality
+│   ├── tensor.hpp
+│   ├── scalar.hpp
+│   ├── operators.hpp
+│   └── module.hpp
+├── nn/                 # Neural network components
+│   ├── activations.hpp
+│   └── layers/        # Layer implementations
+│       ├── linear.hpp
+│       └── conv2d.hpp
+├── optim/             # Optimization algorithms
+│   └── optimizer.hpp
+├── data/              # Data handling
+│   ├── dataset.hpp
+│   └── dataloader.hpp
+├── utils/             # Core utilities
+│   └── graph_builder.hpp
+├── io/                # Input/Output operations
+│   └── visualization.hpp
+└── kiwitorch.hpp      # Main include file
+```
+
 ## License
 
 The source code for kiwitorch is distributed under the terms of the GNU General Public License v3.0, as I firmly believe that collaborating on free and open-source software fosters innovations that mutually and equitably beneficial to both collaborators and users alike. See [`LICENSE`](./LICENSE) for details and more information.
