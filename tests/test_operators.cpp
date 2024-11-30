@@ -4,9 +4,7 @@
 using namespace kiwitorch;
 
 // Helper function for floating point comparison
-bool assert_close(float a, float b, float rtol = 1e-5) {
-  return std::abs(a - b) < rtol;
-}
+bool assert_close(float a, float b, float rtol = 1e-5) { return std::abs(a - b) < rtol; }
 
 // Basic arithmetic tests
 TEST(ScalarTest, BasicOperations) {
@@ -25,9 +23,7 @@ TEST(OperatorsTest, BasicOperations) {
   EXPECT_TRUE(assert_close(Scalar::add(x, y), x + y));
   EXPECT_TRUE(assert_close(Scalar::neg(x), -x));
   EXPECT_TRUE(assert_close(Scalar::max(x, y), std::max(x, y)));
-  if (std::abs(x) > 1e-5) {
-    EXPECT_TRUE(assert_close(Scalar::inv(x), 1.0f / x));
-  }
+  if (std::abs(x) > 1e-5) { EXPECT_TRUE(assert_close(Scalar::inv(x), 1.0f / x)); }
 }
 
 TEST(OperatorsTest, ReluTest) {
@@ -94,7 +90,5 @@ TEST(OperatorsTest, NegListTest) {
   std::vector<double> ls = {1.0f, -2.0f, 3.0f};
   auto result = Scalar::negList(ls);
 
-  for (size_t i = 0; i < ls.size(); i++) {
-    EXPECT_TRUE(assert_close(ls[i], -result[i]));
-  }
+  for (size_t i = 0; i < ls.size(); i++) { EXPECT_TRUE(assert_close(ls[i], -result[i])); }
 }
